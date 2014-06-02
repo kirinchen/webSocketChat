@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="BIG5">
+<title>Insert title here</title>
+
+<script src="../assets/lib/jquery/jquery.js"></script>
+<script src="../assets/lib/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/lib/knockout/knockout.js"></script>
+<script src="../assets/lib/sockjs/sockjs.js"></script>
+<script src="../assets/lib/stomp/lib/stomp.min.js"></script>
+
+</head>
+<body>
+
+	Name :
+	<input type="text" id="userName" value="guest" />
+
+	<div style="height : 300px; background: rgb(135, 135, 194)">
+		<table width="500px" data-bind="foreach: chat().rowMessages()">
+			<tr>
+				<td data-bind="text:user().name"></td>
+				<td data-bind="text:content"></td>
+			</tr>
+		</table>
+	</div>
+
+	<br/>
+	<input type="text" id="message" data-bind="value: userMessage "  /> 
+	<input type="button" id="send" value="send" data-bind="click: sendMessage" />
+
+
+</body>
+
+<script src="./AppModel.js"></script>
+<script src="./Chat.js"></script>
+<script src="./User.js"></script>
+<script src="./RowMessage.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var socket = new SockJS('/testws/portfolio');
+		var stompClient = Stomp.over(socket);
+        var appModel = new AppModel(stompClient);
+        ko.applyBindings(appModel);
+        appModel.connect();
+	});
+</script>
+
+</html>
