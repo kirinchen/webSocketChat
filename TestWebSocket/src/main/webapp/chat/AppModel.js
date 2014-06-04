@@ -9,7 +9,6 @@ function AppModel(stompClient) {
 			console.log("STOMP protocol error " + error);
 		});
 
-
 	};
 
 	self._successHandler = function(frame) {
@@ -17,6 +16,10 @@ function AppModel(stompClient) {
 		stompClient.subscribe("/app/hi", function(message) {
 			loadChat(JSON.parse(message.body));
 		});
+		stompClient.subscribe("/message/chat.*", function(message) {
+			addMessage(JSON.parse(message.body));
+		});
+
 	};
 
 	self.sendMessage = function() {
@@ -32,6 +35,10 @@ function AppModel(stompClient) {
 	function loadChat(obj) {
 		c = self.chat();
 		c.loadData(obj);
+	}
+	
+	function addMessage(msg){
+		self.chat().addMessage(msg);
 	}
 
 }

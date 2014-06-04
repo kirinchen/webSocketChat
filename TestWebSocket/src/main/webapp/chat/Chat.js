@@ -12,6 +12,10 @@ function Chat() {
 			_initUsers(obj.users);
 		}
 	};
+	
+	self.addMessage = function(msg){
+		self.rowMessages.push(new RowMessage(msg));
+	};
 
 	function _initUsers(list) {
 		for ( var key in list) {
@@ -26,6 +30,8 @@ function Chat() {
 			self.rowMessages.push(new RowMessage(row));
 		}
 	}
+	
+	
 	
 
 

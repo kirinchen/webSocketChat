@@ -43,7 +43,7 @@ public class ChatService {
 		System.out.println("addMessage");
 		Chat chat = getChat(chatName);
 		chat.getRowMessages().add(row);
-		this.messagingTemplate.convertAndSend("/topic/chat." +chatName , row);
+		this.messagingTemplate.convertAndSend("/message/chat." +chatName , row);
 	}
 
 
