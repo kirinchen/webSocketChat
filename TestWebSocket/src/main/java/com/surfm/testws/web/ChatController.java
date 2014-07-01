@@ -19,7 +19,7 @@ public class ChatController {
 	@Autowired
 	private ChatService chatService;
 	
-
+	
 	@SubscribeMapping("/hi")
 	public Chat hi(Principal principal){
 		Chat chat =  chatService.getChat(ChatService.DEFAULT_CHAT_NAME);
@@ -37,9 +37,4 @@ public class ChatController {
 		row.setUser(chatService.getUser(chatName, principal.getName()));
 		chatService.addMessage(chatName, row);
 	}
-	
-	
-	
-
-	
 }
