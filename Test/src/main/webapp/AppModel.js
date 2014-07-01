@@ -1,5 +1,6 @@
 function AppModel(stompClient) {
 	var self = this;
+	self.chat = ko.observable("lobby");
 	self.rowMessages = ko.observableArray();
 	self.userMessage = ko.observable("plz input message");
 
@@ -23,13 +24,12 @@ function AppModel(stompClient) {
 	};
 
 	self.sendMessage = function() {
-		chatName = self.chat().name();
 		message = {
 			content : self.userMessage()
 		};
-		stompClient.send("/app/" + chatName + "/sendMessage", {}, JSON
+		stompClient.send("/app/" + self.chat() + "/sendMessage", {}, JSON
 				.stringify(message));
-		// self.userMessage("");
+		self.userMessage("");
 	};
 
 	

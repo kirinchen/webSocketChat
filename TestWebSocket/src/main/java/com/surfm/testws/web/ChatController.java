@@ -3,6 +3,7 @@ package com.surfm.testws.web;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.core.MessageSendingOperations;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
@@ -18,6 +19,8 @@ public class ChatController {
 	
 	@Autowired
 	private ChatService chatService;
+	@Autowired
+	private MessageSendingOperations<String> messagingTemplate;
 	
 	
 	@SubscribeMapping("/hi")
