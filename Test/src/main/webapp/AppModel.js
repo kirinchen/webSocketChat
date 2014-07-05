@@ -20,7 +20,28 @@ function AppModel(stompClient) {
 		stompClient.subscribe("/message/chat.*", function(message) {
 			addMessage(JSON.parse(message.body));
 		});
+		stompClient.subscribe("/message/test", function(message) {
+			alert(message.body);
+		});
+		stompClient.subscribe("/user/message/testSendToUser",
+				function(message) {
+					alert(message.body);
+				});
+		stompClient.subscribe("/user/message/errors", function(message) {
+			alert("Error " + message.body);
+		});
+	};
 
+	self.test = function() {
+		stompClient.send("/app/test", {}, JSON.stringify({}));
+	};
+	
+	self.testError = function() {
+		stompClient.send("/app/testError", {}, JSON.stringify({}));
+	};
+
+	self.testSendToUser = function() {
+		stompClient.send("/app/testSendToUser", {}, JSON.stringify({}));
 	};
 
 	self.sendMessage = function() {
@@ -32,8 +53,7 @@ function AppModel(stompClient) {
 		self.userMessage("");
 	};
 
-	
-	function addMessage(msg){
+	function addMessage(msg) {
 		self.rowMessages.push(new RowMessage(msg));
 	}
 
